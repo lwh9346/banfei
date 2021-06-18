@@ -55,17 +55,23 @@ export default {
       { text: "描述", value: "description" },
     ],
     table_items: [],
-    total: 3200.0,
+    total: 0.0,
     used: 0.0,
   }),
 
   watch: {
     table_items(newVal, oldVal) {
-      let tmp = 0;
+      let tmp_total = 0;
+      let tmp_used = 0;
       newVal.forEach((element) => {
-        tmp += element.amount;
+        if (element.type == "use") {
+          tmp_used += element.amount;
+        } else {
+          tmp_total += element.amount;
+        }
       });
-      this.used = tmp;
+      this.used = tmp_used;
+      this.total = tmp_total;
     },
   },
 
